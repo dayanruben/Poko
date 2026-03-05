@@ -1,7 +1,7 @@
 package dev.drewhamilton.poko.fir
 
 import org.jetbrains.kotlin.GeneratedDeclarationKey
-import org.jetbrains.kotlin.fir.declarations.FirSimpleFunction
+import org.jetbrains.kotlin.fir.declarations.FirNamedFunction
 import org.jetbrains.kotlin.fir.extensions.FirExtension
 import org.jetbrains.kotlin.fir.plugin.SimpleFunctionBuildingContext
 import org.jetbrains.kotlin.fir.plugin.createMemberFunction
@@ -63,7 +63,7 @@ internal value class FirSimpleFunctionCompat(
 ) {
     val symbol: FirNamedFunctionSymbol
         get() = try {
-            (value as FirSimpleFunction).symbol
+            (value as FirNamedFunction).symbol
         } catch (_: NoClassDefFoundError) {
             // 2.3.20:
             javaClass.classLoader

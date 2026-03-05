@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    if: ${{ github.ref != 'refs/heads/eap/kotlin' && github.head_ref != 'eap/kotlin' }}
     runs-on: macos-latest
     steps:
       - name: Check out the repo
@@ -53,6 +54,7 @@ jobs:
           -Dorg.gradle.project.pokoTests.compileMode=WITHOUT_K2
 
   test-with-jdk:
+    if: ${{ github.ref != 'refs/heads/eap/kotlin' && github.head_ref != 'eap/kotlin' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -85,6 +87,7 @@ jobs:
           -Dorg.gradle.project.pokoTests.compileMode=WITHOUT_K2
 
   build-sample:
+    if: ${{ github.ref != 'refs/heads/eap/kotlin' && github.head_ref != 'eap/kotlin' }}
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -124,6 +127,22 @@ jobs:
 
       - name: Build sample
         run: cd sample && ./gradlew build --stacktrace
+
+  eap-smoke:
+    if: ${{ github.ref == 'refs/heads/eap/kotlin' || github.head_ref == 'eap/kotlin' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v6
+      - name: Install JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: 25
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+      - name: Kotlin EAP smoke check
+        run: ./gradlew help --stacktrace
 
 env:
   GRADLE_OPTS: >-
