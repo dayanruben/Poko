@@ -1,6 +1,6 @@
 [versions]
 
-androidx-compose-runtime = "1.10.4"
+androidx-compose-runtime = "1.10.6"
 
 kotlin = "2.3.21-RC"
 kotlinCompileTesting = "1.6.0"
@@ -32,9 +32,9 @@ assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
 asm-util = "org.ow2.asm:asm-util:9.9.1"
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.21"
 
-plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.7"
+plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.9"
 plugin-mavenPublish = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
-plugin-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.1.0"
+plugin-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
 
 android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "android" }
 
