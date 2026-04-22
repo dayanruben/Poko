@@ -6,15 +6,12 @@ import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.AppliedPlugin
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.kotlin.dsl.buildConfigField
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
-import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
@@ -103,17 +100,10 @@ class PokoBuildPlugin : Plugin<Project> {
             val kotlinPluginHandler = Action<AppliedPlugin> {
                 val kotlin = project.extensions.getByType<KotlinBaseExtension>()
                 kotlin.explicitApi()
-                val abiValidation = (kotlin as ExtensionAware).extensions.getByName("abiValidation")
-                // KT-84630 KGP: AbiValidationMultiplatformExtension does not extend AbiValidationExtension
-                if (abiValidation is AbiValidationMultiplatformExtension) {
-                    abiValidation.enabled.set(true)
-                } else {
-                    abiValidation as AbiValidationExtension
-                    abiValidation.enabled.set(true)
-                }
-                // KT-78525 KGP: abiValidation: check does not depend on checkLegacyAbi when enabled
+                val abiValidation = kotlin.abiValidation
+                // KT-78525 KGP: abiValidation: check does not depend on the ABI check task when enabled
                 project.tasks.named("check") {
-                    dependsOn(project.tasks.named("checkLegacyAbi"))
+                    dependsOn(abiValidation.checkTaskProvider)
                 }
             }
             project.pluginManager.withPlugin("org.jetbrains.kotlin.jvm", kotlinPluginHandler)
