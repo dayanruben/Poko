@@ -2,10 +2,10 @@
 
 androidx-compose-runtime = "1.11.2"
 
-kotlin = "2.3.21"
+kotlin = "2.4.0"
 kotlinCompileTesting = "1.6.0"
 # https://central.sonatype.com/artifact/dev.zacsweers.kctfork/core/versions:
-kotlinCompileTestingFork = "0.12.1"
+kotlinCompileTestingFork = "0.13.0"
 # https://github.com/google/ksp/releases:
 ksp = "2.3.9"
 android = "9.2.1"
@@ -32,7 +32,7 @@ assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
 asm-util = "org.ow2.asm:asm-util:9.10.1"
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.9"
+plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.10"
 plugin-mavenPublish = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
 plugin-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
 
