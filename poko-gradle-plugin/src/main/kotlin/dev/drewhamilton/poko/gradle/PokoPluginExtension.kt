@@ -1,15 +1,9 @@
 package dev.drewhamilton.poko.gradle
 
-import dev.drewhamilton.poko.gradle.BuildConfig.DEFAULT_POKO_ANNOTATION
-import dev.drewhamilton.poko.gradle.BuildConfig.DEFAULT_POKO_ENABLED
-import javax.inject.Inject
-import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 
-public abstract class PokoPluginExtension @Inject constructor(objects: ObjectFactory) {
-
-    public val enabled: Property<Boolean> = objects.property(Boolean::class.javaObjectType)
-        .convention(DEFAULT_POKO_ENABLED)
+public interface PokoPluginExtension {
+    public val enabled: Property<Boolean>
 
     /**
      * Define a custom Poko marker annotation. The poko-annotations artifact won't be automatically
@@ -21,6 +15,27 @@ public abstract class PokoPluginExtension @Inject constructor(objects: ObjectFac
      * Note that this affects the main Poko annotation and any nested annotations, such as
      * `@Poko.ReadArrayContent` and `@Poko.Skip`.
      */
-    public val pokoAnnotation: Property<String> = objects.property(String::class.java)
-        .convention(DEFAULT_POKO_ANNOTATION)
+    public val pokoAnnotation: Property<String>
+
+    /**
+     * Configures which Poko FIR extensions run in non-CLI sessions (i.e. IDE analysis).
+     *
+     * CLI compiler sessions always run the full FIR plugin regardless of this setting.
+     * The default is [PokoFirIdeMode.ALL], but if you have compatibility issues in
+     * the IDE you can lower this to [PokoFirIdeMode.CHECKERS_ONLY] or
+     * [PokoFirIdeMode.NONE] to completely disable Poko in the IDE.
+     */
+    public val firIdeMode: Property<PokoFirIdeMode>
+}
+
+/** Controls which Poko FIR extensions run in non-CLI sessions. */
+public enum class PokoFirIdeMode {
+    /** Run FIR declaration generation and checkers. */
+    ALL,
+
+    /** Run FIR checkers only, without declaration generation. Checkers are diagnostics like warnings and errors. */
+    CHECKERS_ONLY,
+
+    /** Do not run Poko FIR declaration generation or checkers. */
+    NONE,
 }

@@ -50,17 +50,16 @@ plugins {
 
 rootProject.name = "PokoSample"
 
-include(":jvm")
+// Compile sample project with different Kotlin version than Poko, if provided:
+private val localKotlinVersionOverride: String? = null
+private val kotlinVersionOverride = localKotlinVersionOverride
+    ?: System.getenv()["poko_sample_kotlin_version"]?.ifBlank { null }
 
-// Kotlin 2.3 does not support language target 1.9 for multiplatform:
-private val ciKotlinLanguageVersion = System.getenv()["ORG_GRADLE_PROJECT_pokoSample_kotlinLanguageVersion"]
-if (ciKotlinLanguageVersion?.startsWith("1") == true) {
-    logger.lifecycle("Language version $ciKotlinLanguageVersion; skipping :mpp module")
-} else {
+include(":jvm")
+include(":compose")
+if (kotlinVersionOverride?.startsWith("2.4.0-dev") != true) {
     include(":mpp")
 }
-
-include(":compose")
 
 private val isCi = System.getenv()["CI"] == "true"
 if (!isCi) {
@@ -87,12 +86,6 @@ dependencyResolutionManagement {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))
 
-            fun String.nullIfBlank(): String? = if (isNullOrBlank()) null else this
-
-            // Compile sample project with different Kotlin version than Poko, if provided:
-            val localKotlinVersionOverride: String? = null
-            val kotlinVersionOverride = localKotlinVersionOverride
-                ?: System.getenv()["poko_sample_kotlin_version"]?.nullIfBlank()
             kotlinVersionOverride?.let { kotlinVersion ->
                 version("kotlin", kotlinVersion)
             }

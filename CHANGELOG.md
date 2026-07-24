@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.23.1
+_2026-06-04_
+
+Restore compatibility with 2.4.0-dev, to maintain support for IntelliJ 2026.1. Add `firIdeMode`
+configuration option to disable FIR generation and/or checks in the IDE, to protect against future
+breaking changes in the IDE Kotlin version.
+
+## 0.23.0
+_2026-06-03_
+
+Increase deprecation level of `@SkipSupport` and `@ArrayContentSupport` annotations from `ERROR` to
+`HIDDEN`.
+
+Compile with Kotlin 2.4.0. Drop support for Kotlin 2.3 due to incompatibility. Drop support for
+non-K2 compilation, i.e. language level 1.9.
+
+Target Gradle 9.5.
+
+## 0.22.1
+_2026-04-24_
+
+Compile with Kotlin 2.3.21. Implement forward compatibility with Kotlin 2.4.0-Beta2.
+
+## 0.22.0
+_2026-03-16_
+
+Convert `PokoPluginExtension` from abstract class to interface.
+
+Increase deprecation level of `@SkipSupport` annotation from `WARNING` to `ERROR`. Increase
+deprecation level of `@ArrayContentBased` annotation from `ERROR` to `HIDDEN`.
+
+Compile with Kotlin 2.3.20.
+
+Drop support for Kotlin 2.3.0 and 2.3.10 due to incompatibility.
+
 ## 0.21.3
 _2026-03-02_
 

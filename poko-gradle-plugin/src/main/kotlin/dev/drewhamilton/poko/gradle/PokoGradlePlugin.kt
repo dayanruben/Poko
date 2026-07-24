@@ -1,7 +1,9 @@
 package dev.drewhamilton.poko.gradle
 
 import com.android.build.api.dsl.CommonExtension
+import dev.drewhamilton.poko.gradle.BuildConfig.DEFAULT_POKO_FIR_IDE_MODE
 import dev.drewhamilton.poko.gradle.BuildConfig.DEFAULT_POKO_ANNOTATION
+import dev.drewhamilton.poko.gradle.BuildConfig.DEFAULT_POKO_ENABLED
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.SourceSetContainer
@@ -16,6 +18,9 @@ public class PokoGradlePlugin : KotlinCompilerPluginSupportPlugin {
 
     override fun apply(target: Project) {
         val extension = target.extensions.create("poko", PokoPluginExtension::class.java)
+        extension.enabled.convention(DEFAULT_POKO_ENABLED)
+        extension.pokoAnnotation.convention(DEFAULT_POKO_ANNOTATION)
+        extension.firIdeMode.convention(PokoFirIdeMode.valueOf(DEFAULT_POKO_FIR_IDE_MODE))
 
         val pokoAnnotationDependency = extension.pokoAnnotation.map {
             when (it) {
@@ -82,6 +87,14 @@ public class PokoGradlePlugin : KotlinCompilerPluginSupportPlugin {
                 SubpluginOption(
                     key = BuildConfig.POKO_ANNOTATION_OPTION_NAME,
                     value = it,
+                )
+            }
+        )
+        optionsProvider.add(
+            extension.firIdeMode.map {
+                SubpluginOption(
+                    key = BuildConfig.POKO_FIR_IDE_MODE_OPTION_NAME,
+                    value = it.name,
                 )
             }
         )

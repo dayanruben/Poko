@@ -1,14 +1,14 @@
 [versions]
 
-androidx-compose-runtime = "1.10.4"
+androidx-compose-runtime = "1.11.4"
 
-kotlin = "2.3.10"
+kotlin = "2.4.10"
 kotlinCompileTesting = "1.6.0"
 # https://central.sonatype.com/artifact/dev.zacsweers.kctfork/core/versions:
-kotlinCompileTestingFork = "0.12.1"
+kotlinCompileTestingFork = "0.13.0"
 # https://github.com/google/ksp/releases:
-ksp = "2.3.6"
-android = "9.1.0"
+ksp = "2.3.10"
+android = "9.3.1"
 
 [libraries]
 
@@ -29,12 +29,12 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 kotlin-gradleApi = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "kotlin" }
 
 assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
-asm-util = "org.ow2.asm:asm-util:9.9.1"
-testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.21"
+asm-util = "org.ow2.asm:asm-util:9.10.1"
+testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.7"
-plugin-mavenPublish = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
-plugin-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.1.0"
+plugin-buildconfig = "com.github.gmazzo.buildconfig:plugin:6.0.10"
+plugin-mavenPublish = "com.vanniktech:gradle-maven-publish-plugin:0.37.0"
+plugin-dokka = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
 
 android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "android" }
 
